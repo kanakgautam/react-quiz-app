@@ -1,0 +1,35 @@
+.timer-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 90%;
+    max-width: 500px;
+    height:400px;
+}
+
+.timer-container-inactive{
+    display: none;
+}
+
+.timer-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.time-clock{
+    font-size: 30px;
+}
+
+.timer-btn{
+    font-size: 30px;
+    min-width: 200px;
+    background-color: #fff;
+    height: 70px;
+    border-radius: 5px;
+    border:transparent;
+}
+
+.timer-btn:focus{
+    border:rgb(0, 174, 255);
+}
