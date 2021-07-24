@@ -19,10 +19,17 @@
     flex-direction: column;
 }
 
-.time-clock{
+.clock-timer{
     font-size: 60px;
     font-weight: bolder;
 }
+
+.clock-timer-red{
+    font-size: 60px;
+    font-weight: bolder;
+    color: red;
+}
+
 
 .timer-btn{
     font-size: 30px;

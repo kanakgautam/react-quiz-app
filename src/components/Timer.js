@@ -30,7 +30,6 @@ const Timer = (props) => {
                 }
                 if(props.minutes===1)
                 {
-                    console.log('hey')
                     props.dispatch(reveal())
                 }
             },1000
@@ -41,7 +40,7 @@ const Timer = (props) => {
         <>
             <div class={props.islogged? 'timer-container':'timer-container-inactive'}>
                 <div class="timer-wrapper">
-                    <div className='time-clock'>
+                    <div className={(props.minutes<10)?'clock-timer-red':'clock-timer'}>
                         <span className="minute">{min}</span>
                         <span className='second'>{sec}</span>
                     </div>
