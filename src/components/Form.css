@@ -6,6 +6,11 @@
     width:100%;
 }
 
+.quiz-heading{
+    font-size: 60px;
+    color: #fff;
+}
+
 .form-container-wrapper{
     display: flex;
     flex-direction: row;

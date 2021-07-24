@@ -55,10 +55,9 @@ export const multiply = (number) =>{
     };
 }
 
-export const subtract = (number) =>{
+export const subtract = () =>{
     return{
-        type: 'REDUCTION',
-        payload:number
+        type: 'REDUCTION'
     };
 }
 
@@ -78,6 +77,18 @@ export const revert = () =>{
 export const convert = () =>{
     return{
         type: 'CONVERT'
+    }
+}
+
+export const reveal = () =>{
+    return{
+        type:'REVEAL'
+    }
+}
+
+export const hide = () =>{
+    return{
+        type:'HIDE'
     }
 }
 

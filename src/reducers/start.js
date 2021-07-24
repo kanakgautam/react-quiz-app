@@ -1,4 +1,4 @@
-const startedReducer = (state = false, action) => {
+const startedReducer = (state = true, action) => {
     switch (action.type) {
         case 'GET_IN':
             return true;

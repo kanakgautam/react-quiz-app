@@ -4,6 +4,7 @@ import minuteReducer from './minutes'
 import startedReducer from './start'
 import ansArrayReducer from './ansArray'
 import activeReducer  from './active'
+import showReducer from './show'
 
 import {combineReducers} from 'redux'
 
@@ -13,7 +14,8 @@ const allReducers =combineReducers({
     minutes:minuteReducer,
     start:startedReducer,
     ansArray:ansArrayReducer,
-    active:activeReducer
+    active:activeReducer,
+    show:showReducer
 });
 
 export default allReducers;

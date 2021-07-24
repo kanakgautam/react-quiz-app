@@ -1,71 +1,61 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement, sign_in, sign_out, begin, get_in, get_out, multiply, decrease, subtract, set_value, set_answer, initialize, convert } from '../actions'
-import loggedReducer from "../reducers/isLogged";
+import React, {  useEffect } from "react";
+import { useState } from "react";
+import { connect} from 'react-redux'
+import {  convert, hide, reveal, sign_out, subtract } from '../actions'
 import './Timer.css'
 
-const Timer = () => {
-    const minutes = useSelector(state => state.minutes);
-    let time = minutes;
-    const [second, setSecond] = useState("00");
-    const [minute, setMinute] = useState("00");
-    const [isActive, setIsActive] = useState(false);
-    const start = useSelector(state => state.start);
-    const counter = useSelector(state => state.counter);
-    const islogged = useSelector(state => state.islogged)
+const Timer = (props) => {
 
-    const dispatch = useDispatch();
-    
-    var interval;
-
-    const startTimer = () => {
-        setIsActive(!isActive);
-        dispatch(get_in());
-        interval = setInterval(() => {
-            time--;
-            console.log(minutes);
-            dispatch(set_value(time));
-            if (time <= 0) {
-                clearInterval(interval);
-                dispatch(sign_out());
-                dispatch(get_out());
-                dispatch(set_value(0));
-                console.log(islogged);
-            }
-            setSecond(time % 60);
-            setMinute(Math.floor(time / 60));
-        }, 1000);
-    }
-    const stopTimer = () => {
-        time=0;
-        dispatch(sign_out());
-        dispatch(get_out());
-        dispatch(set_value(0));
-        dispatch(convert());
-        dispatch(set_answer([-1,-1,-1,-1,-1]));
-        dispatch(initialize());
-        clearInterval(interval);
-
-    }
- 
-
+    const [min,setMin]=useState('00');
+    const [sec,setSec]=useState('00');
+    useEffect(() => {
+        const timer= setTimeout(
+            () => {
+                props.dispatch(subtract())
+                console.log(props.minutes);
+                console.log(props.show)
+                console.log(props.start)
+                if(Math.floor((props.minutes)/60)>=10)
+                    setMin(Math.floor((props.minutes)/60)+':');
+                else
+                    setMin('0'+Math.floor((props.minutes)/60)+':');
+                if(((props.minutes)%60)>=10)
+                    setSec(((props.minutes)%60));
+                else
+                    setSec('0'+((props.minutes)%60));
+                if(props.minutes===0)
+                {
+                    console.log(props.minutes);
+                    props.dispatch(sign_out());
+                }
+                if(props.minutes===1)
+                {
+                    console.log('hey')
+                    props.dispatch(reveal())
+                }
+            },1000
+        );
+        return () => clearTimeout(timer)
+    });
     return (
         <>
-            <div class={islogged ? 'timer-container' : 'timer-container-inactive'} onLoad={startTimer}>
+            <div class={props.islogged? 'timer-container':'timer-container-inactive'}>
                 <div class="timer-wrapper">
                     <div className='time-clock'>
-                        <span class="minute">{minute}</span>
-                        <span>:</span>
-                        <span class="second">{second}</span>
+                        <span className="minute">{min}</span>
+                        <span className='second'>{sec}</span>
                     </div>
-                </div>
-                <div >
-                    {isActive ? <button className="timer-btn" onClick={stopTimer}>Submit</button> : <button className="timer-btn" onClick={startTimer}>Start-timer</button>}
                 </div>
             </div>
         </>
-
     );
 };
 
-export default Timer;
+const mapStateToProps = state => ({
+    minutes: state.minutes,
+    islogged:state.islogged,
+    show:state.show,
+    start:state.start
+  });
+
+  export default connect(mapStateToProps)(Timer);

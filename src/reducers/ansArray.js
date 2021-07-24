@@ -1,4 +1,3 @@
-
 const initialState =[-1,-1,-1,-1,-1];
 
 const ansArrayReducer = (state=initialState,action) =>{

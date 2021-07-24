@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch,connect } from 'react-redux'
 import './App.css';
-import { increment, decrement, set_answer, convert, initialize, revert } from './actions'
+import { increment, decrement, set_answer, convert, initialize, revert, set_value, sign_out, get_in, hide } from './actions'
 import Question from './components/Question'
 import QuestionArray from './components/QuestionArray'
 import Timer from './components/Timer'
 import Form from './components/Form';
 import counterReducer from './reducers/counter';
 
-function App() {
+function App(props) {
   const counter = useSelector(state => state.counter);
   const islogged = useSelector(state => state.islogged);
   const minutes = useSelector(state => state.minutes);
   const start = useSelector(state => state.start);
   const ansArray =useSelector(state => state.ansArray);
-  const active =useSelector(state=>state.active);
+  const show =useSelector(state=>state.show);
   const dispatch = useDispatch();
   const [ansArr, setAnsArr] = useState([-1, -1, -1, -1, -1]);
   const[score, setScore]= useState(0);
 
   const changeArray = (item, index) => {
     let arr = [];
-    for (let i = 0; i < ansArr.length; i++) {
+    for (let i = 0; i < ansArray.length; i++) {
       if (i === index) {
         arr.push(item)
       }
       else {
-        arr.push(ansArr[i]);
+        arr.push(ansArray[i]);
       }
     }
     setAnsArr(arr);
@@ -34,32 +34,29 @@ function App() {
     console.log(ansArr);
     dispatch(set_answer(arr));
     console.log(ansArray);
-  }
-  const calc = () =>{
     var tot =0;
     for(let i=0;i<ansArray.length;i++)
     {
       if(QuestionArray[i].correct===ansArray[i])tot++;
     }
-    handleScore(tot);
-    return tot;
+    setScore(tot);
   }
-
-  const handleScore =(val) =>{
-      if(start)
-        setScore(val);
-      console.log(score);
+  const handleclick = () =>{
+    dispatch(set_value(0));
+    dispatch(set_answer([-1,-1,-1,-1,-1]));
+    dispatch(initialize());
+    dispatch(sign_out());
+    dispatch(get_in())
+    dispatch(hide())
+    console.log(islogged);
+    console.log(show);
   }
-
-  useEffect(()=>{
-    calc();
-  })
   return (
     <>
       <div className='quiz-container'>
         <Form />
-        <Timer minutes={minutes} />
-        <div className={start ? 'question-slider' : 'question-slider-inactive'}>
+        <Timer />
+        <div className={islogged ? 'question-slider' : 'question-slider-inactive'}>
           <button className='question-slider-btn' onClick={() => { dispatch(decrement()) }} >&lt;</button>
           {QuestionArray.map((item, index) => {
             if (index === counter)
@@ -69,12 +66,23 @@ function App() {
           })}
           <button className='question-slider-btn' onClick={() => { dispatch(increment()) }} >&gt;</button>
         </div>
-        <div className={start? 'score-container-inactive':'score-container'} >
-          <h1>Score:{score}</h1>
+        <div className={show ? 'score-container':'score-container-inactive'} >
+          <h1>Score:{score}/5</h1>
+          <button className='Submit-btn' onClick={handleclick}>Submit</button>
         </div>
       </div>
     </>
   );
 }
+const mapStateToProps = state => ({
+  minutes: state.minutes,
+  ansArray:state.ansArray,
+  islogged:state.islogged,
+  counter:state.counter,
+  start:state.start,
+  active:state.active,
+  show:state.show
+});
 
-export default App;
+export default connect(mapStateToProps)(App);
+

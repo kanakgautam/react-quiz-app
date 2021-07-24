@@ -5,7 +5,9 @@
     justify-content: space-evenly;
     width: 90%;
     max-width: 500px;
-    height:400px;
+    height:200px;
+    font-size: 60px;
+    color: #fff;
 }
 
 .timer-container-inactive{
@@ -18,7 +20,8 @@
 }
 
 .time-clock{
-    font-size: 30px;
+    font-size: 60px;
+    font-weight: bolder;
 }
 
 .timer-btn{

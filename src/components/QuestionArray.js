@@ -6,7 +6,7 @@ var QuestionArray = [
         chosenOption:-1
     },
     {
-        question: "Which of the following cricket is called Master Blaster?",
+        question: "Which of the following is called Master Blaster?",
         option :['M.S Dhoni', 'Virendra Sehwag','Sunil Gavaskar','Sachin Tendulkar'],
         correct: 3,
         chosenOption:-1
@@ -25,7 +25,7 @@ var QuestionArray = [
     },
     {
         question: "Where is Sydney located?",
-        option: ['United Kingdom','Austrailia','Punjab','Afghanistan'],
+        option: ['United Kingdom','Australia','Punjab','Afghanistan'],
         correct: 1,
         chosenOption:-1
     }

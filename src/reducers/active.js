@@ -1,4 +1,4 @@
-const activeReducer =(state='false',action) =>{
+const activeReducer =(state=false,action) =>{
     switch(action.type){
         case 'CONVERT':
         return true;

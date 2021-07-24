@@ -15,7 +15,7 @@ function Question(props) {
                     return (
                         <div className='question-card-option'>
                             <button className='question-card-btn-selected' onClick={()=>{
-                                onclick(-1,val);
+                                onclick(index,val);
                             }}></button><p>{item}</p>
                         </div>
                     )
